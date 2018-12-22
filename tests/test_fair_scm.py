@@ -136,7 +136,7 @@ def test_fair_scm_pulse():
 	result_C, result_T = fair_scm(emissions=emissions_input[0,:])
 
 	np.testing.assert_allclose(result_C, expected_C[0,:], rtol=10.)
-	np.testing.assert_allclose(result_T, expected_T, rtol=0.25)
+	np.testing.assert_allclose(result_T, expected_T, rtol=0.5)
 
 
 
