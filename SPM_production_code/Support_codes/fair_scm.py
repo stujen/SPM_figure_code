@@ -250,7 +250,7 @@ def plot_fair(emms,
 
   if integ_len == 0:
     for name in pts:
-      print "{0}: {1}".format(name,type(pts[name]))
+      print("{0}: {1}".format(name,type(pts[name])))
     raise ValueError("Error: I can't work out which one of your input variables is a timeseries")
 
   for j,var in enumerate(pts):
@@ -258,9 +258,9 @@ def plot_fair(emms,
       pass
     elif type(pts[var]) == np.ndarray and len(pts[var]) != integ_len:
       for name in pts:
-        print "{0}: {1}\nlength: {2}".format(name,
-                                             type(pts[name]),
-                                             len(pts[name]))
+        print("{0}: {1}\nlength: {2}".format(name,
+                                                     type(pts[name]),
+                                                     len(pts[name])))
       raise ValueError("Error: Your timeseries are not all the same length, I don't know what to do")
     else:
       if type(pts[var]) in [float,int]:
