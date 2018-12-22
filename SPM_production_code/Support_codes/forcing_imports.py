@@ -12,9 +12,6 @@ from scipy.optimize import root
 from scipy.stats import norm, beta
 from statsmodels.api import OLS
 import statsmodels.tools.tools
-import datetime
-import os
-import h5py
 import copy
 from pandas import DataFrame
 # -------------------------------------------
