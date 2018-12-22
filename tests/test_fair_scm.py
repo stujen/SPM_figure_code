@@ -23,7 +23,7 @@ def test_iirf_func_val():
 
 def test_fair_scm_pulse():
 
-	import matplotlib.pyplot as plt
+	from matplotlib import pyplot as plt
 
 	# define functions for within fair model
 
