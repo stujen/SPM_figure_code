@@ -126,15 +126,15 @@ def test_fair_scm_pulse():
 
 
 
-	emissions_input = np.zeros(100)
-	emissions_input[30] = 30.
+	emissions_input = np.zeros((100,3))
+	emissions_input[30,0] = 30.
 
 	expected_C, expected_RF, expected_T = oxfair(emissions_input)
 
 	result_C, result_T = fair_scm(emissions=emissions_input)
 
-	np.testing.assert_allclose(result_C, expected_C,rtol=10.)
-	np.testing.assert_allclose(result_T, expected_T,rtol=0.05)
+	np.testing.assert_allclose(result_C, expected_C[:,0], rtol=10.)
+	np.testing.assert_allclose(result_T, expected_T[:,0], rtol=0.05)
 
 
 
