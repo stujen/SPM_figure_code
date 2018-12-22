@@ -142,7 +142,7 @@ def test_fair_scm_pulse():
 	# plt.show()
 
 	# np.testing.assert_allclose(result_C, expected_C[0,:], rtol=10.)
-	np.testing.assert_allclose(result_T, expected_T, rtol=0.5)
+	np.testing.assert_allclose(result_T, expected_T, rtol=0.5, atol=0.1)
 
 
 test_fair_scm_pulse()
