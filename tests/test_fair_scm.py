@@ -126,8 +126,8 @@ def test_fair_scm_pulse():
 
 
 
-	emissions_input = np.zeros((100,3))
-	emissions_input[30,0] = 30.
+	emissions_input = np.zeros((3,100))
+	emissions_input[0,30] = 30.
 
 	expected_C, expected_RF, expected_T = oxfair(emissions_input)
 
