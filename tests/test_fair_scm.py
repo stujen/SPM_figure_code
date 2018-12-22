@@ -7,8 +7,8 @@ from SPM_production_code.Support_codes.fair_scm import *
 
 def test_iirf_func_val():
 
-	tau = [100.,10.,5.,200.]
-	a = [0.21,0.39,0.1,0.3]
+	tau = np.array([100.,10.,5.,200.])
+	a = np.array([0.21,0.39,0.1,0.3])
 	alpha = 0.17
 
 	result = iirf100_interp_funct(alpha,a,tau,50.)
