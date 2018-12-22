@@ -3,7 +3,7 @@
 import numpy as np
 import math
 
-from SPM_production_code.Support_codes.fair_scm import *
+from Documents.Github.SPM_figure_code.SPM_production_code.Support_codes.fair_scm import *
 
 def test_iirf_func_val():
 
@@ -134,6 +134,9 @@ def test_fair_scm_pulse():
 	expected_C, expected_RF, expected_T = oxfair(emissions_input)
 
 	result_C, result_T = fair_scm(emissions=emissions_input[0,:])
+
+	plt.plot(result_T, color='blue')
+	plt.plot(expected_T, color='red')
 
 	np.testing.assert_allclose(result_C, expected_C[0,:], rtol=10.)
 	np.testing.assert_allclose(result_T, expected_T, rtol=0.5)
