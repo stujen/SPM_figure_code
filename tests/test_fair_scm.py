@@ -24,8 +24,6 @@ def test_iirf_func_val():
 
 def test_fair_scm_pulse():
 
-	# from matplotlib import pyplot as plt
-
 	# define functions for within fair model
 
 	def step_conc(R,alpha,E,a,tau,pre_ind_C,emis2conc):
@@ -136,12 +134,7 @@ def test_fair_scm_pulse():
 
 	result_C, result_T = fair_scm(emissions=emissions_input[0,:])
 
-	# plt.plot(result_T, color='blue')
-	# plt.plot(expected_T, color='red')
-	# plt.plot(result_T - expected_T, color='black')
-	# plt.show()
-
-	# np.testing.assert_allclose(result_C, expected_C[0,:], rtol=10.)
+	np.testing.assert_allclose(result_C, expected_C[0,:], rtol=5., atol=5.)
 	np.testing.assert_allclose(result_T, expected_T, rtol=0.01, atol=0.01)
 
 
