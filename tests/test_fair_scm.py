@@ -12,11 +12,11 @@ def test_iirf_func_val():
 	alpha = 0.17
 
 	result = iirf100_interp_funct(alpha,a,tau,50.)
-    
-    iirf100_arr = alpha*(np.sum(a*tau*(1.0 - np.exp(-100.0/(tau*alpha)))))
-    targ_iirf100 = 50.
 
-    expected = iirf100_arr - targ_iirf100
+	iirf100_arr = alpha*(np.sum(a*tau*(1.0 - np.exp(-100.0/(tau*alpha)))))
+	targ_iirf100 = 50.
+
+	expected = iirf100_arr - targ_iirf100
 
 	np.testing.assert_allclose(result, expected)
 
