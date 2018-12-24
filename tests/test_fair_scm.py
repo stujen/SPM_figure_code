@@ -40,7 +40,7 @@ def test_fair_scm_ramp():
 	emissions_input[0,50:] = 10.0
 
 	expected_C, expected_RF, expected_T = oxfair(emissions_input)
-	expected_C, expected_T = fair_scm(emissions=emissions_input[:])
+	expected_C, expected_T = fair_scm(emissions=emissions_input[0,:])
 
 	
 
@@ -57,7 +57,7 @@ def test_inverse_fair():
 
 	required_C, required_RF, required_T = oxfair(emissions=emissions_input)
 
-	calculated_T, calculated_ems = fair_scm_emsback(required_RF)
+	calculated_T, calculated_ems = fair_scm_emsback(required_RF[0,:])
 
 	result_C, result_T = fair_scm(emissions=calculated_ems)
 
