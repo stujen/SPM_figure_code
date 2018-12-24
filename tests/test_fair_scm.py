@@ -40,9 +40,7 @@ def test_fair_scm_ramp():
 	emissions_input[0,50:] = 10.0
 
 	expected_C, expected_RF, expected_T = oxfair(emissions_input)
-	expected_C, expected_T = fair_scm(emissions=emissions_input[0,:])
-
-	
+	result_C, result_T = fair_scm(emissions=emissions_input[0,:])
 
 	np.testing.assert_allclose(result_C, expected_C[0,:], rtol=10., atol=10.)
 	np.testing.assert_allclose(result_T, expected_T, rtol=0.05, atol=0.05)
