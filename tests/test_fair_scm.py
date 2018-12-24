@@ -21,7 +21,6 @@ def test_iirf_func_val():
 
 	np.testing.assert_allclose(result, expected)
 
-
 def test_fair_scm_pulse():
 
 	emissions_input = np.zeros((3,100))
@@ -34,7 +33,6 @@ def test_fair_scm_pulse():
 	np.testing.assert_allclose(result_C, expected_C[0,:], rtol=5., atol=5.)
 	np.testing.assert_allclose(result_T, expected_T, rtol=0.01, atol=0.01)
 
-
 def test_fair_scm_ramp():
 
 	emissions_input = np.zeros((3,100))
@@ -42,11 +40,31 @@ def test_fair_scm_ramp():
 	emissions_input[0,50:] = 10.0
 
 	expected_C, expected_RF, expected_T = oxfair(emissions_input)
+	expected_C, expected_T = fair_scm(emissions=emissions_input[:])
 
-	result_C, result_T = fair_scm(emissions=emissions_input[0,:])
+	
 
 	np.testing.assert_allclose(result_C, expected_C[0,:], rtol=10., atol=10.)
 	np.testing.assert_allclose(result_T, expected_T, rtol=0.05, atol=0.05)
+
+def test_inverse_fair():
+
+	emissions_input = np.zeros((3,100))
+	emissions_input[0,30:50] = np.arange(0,10.0,0.5)
+	emissions_input[0,50:] = 10.0
+
+	expected_C, expected_T = fair_scm(emissions=emissions_input[0,:])
+
+	required_C, required_RF, required_T = oxfair(emissions=emissions_input)
+
+	calculated_T, calculated_ems = fair_scm_emsback(required_RF)
+
+	result_C, result_T = fair_scm(emissions=calculated_ems)
+
+	np.testing.assert_allclose(result_C, expected_C, rtol=10., atol=10.)
+	np.testing.assert_allclose(result_T, expected_T, rtol=0.05, atol=0.05)
+
+
 
 
 
