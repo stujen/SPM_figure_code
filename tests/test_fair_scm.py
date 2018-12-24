@@ -55,7 +55,7 @@ def test_inverse_fair():
 
 	required_C, required_RF, required_T = oxfair(emissions=emissions_input)
 
-	calculated_T, calculated_ems = fair_scm_emsback(required_RF[0,:])
+	calculated_T, calculated_ems = fair_scm_emsback(required_RF)
 
 	result_C, result_T = fair_scm(emissions=calculated_ems)
 
