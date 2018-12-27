@@ -3,6 +3,10 @@
 import numpy as np
 import math
 
+import matplotlib
+from matplotlib.testing.decorators import image_comparison
+import matplotlib.pyplot as plt
+
 from SPM_production_code.Support_codes.fair_scm import *
 # from fair_scm import *
 
@@ -62,13 +66,27 @@ def test_inverse_fair():
 	np.testing.assert_allclose(result_C, expected_C, rtol=10., atol=10.)
 	np.testing.assert_allclose(result_T, expected_T, rtol=0.05, atol=0.05)
 
+# @image_comparison(baseline_images=['standard_pic'],
+#                   extensions=['png'])
+# def test_spines_axes_positions():
+#     # SF bug 2852168
+#     fig = plt.figure()
+#     x = np.linspace(0,2*np.pi,100)
+#     y = 2*np.sin(x)
+#     ax = fig.add_subplot(1,1,1)
+#     ax.set_title('centered spines')
+#     ax.plot(x,y)
+#     ax.spines['right'].set_position(('axes',0.1))
+#     ax.yaxis.set_ticks_position('right')
+#     ax.spines['top'].set_position(('axes',0.25))
+#     ax.xaxis.set_ticks_position('top')
+#     ax.spines['left'].set_color('none')
+#     ax.spines['bottom'].set_color('none')
 
 
 
 
-
-# define functions for within fair model
-
+# define functions for within oxfair model
 def step_conc(R,alpha,E,a,tau,pre_ind_C,emis2conc):
     
     E = E[:,np.newaxis]
@@ -81,13 +99,11 @@ def step_conc(R,alpha,E,a,tau,pre_ind_C,emis2conc):
     G_A = (C - pre_ind_C) / emis2conc
     
     return C,R,G_A
-
 def step_forc(C,pre_ind_C,F_ext,f):
     
     F = np.sum(f[...,0]*np.log(C/pre_ind_C) + f[...,1]*(C - pre_ind_C) + f[...,2] * (np.sqrt(C) - np.sqrt(pre_ind_C))) + F_ext
     
     return F
-
 def step_temp(S,F,q,d):
     
     S = q*F*(1-np.exp(-1/d)) + S*np.exp(-1/d)
@@ -95,19 +111,16 @@ def step_temp(S,F,q,d):
     T = np.sum(S)
     
     return S,T
-
 def g_1(a,tau,h):
     
     g1 = np.sum( a*tau*( 1. - (1.+h/tau)*np.exp(-100./tau) ), axis=1 )
     
     return g1
-
 def g_0(a,tau,h):
     
     g0 = ( np.sinh( np.sum( a * tau * (1. - np.exp(-h/tau)) , axis=1) / g_1(a,tau,h) ) )**(-1.)
     
     return g0
-
 def alpha_val(G,G_A,T,tau,a,r,h,pre_ind_C,iirf100_max = 97.0):
     
     iirf100_val = r[...,0] + r[...,1]*(G-G_A) + r[...,2]*T + r[...,3]*G_A
@@ -117,7 +130,6 @@ def alpha_val(G,G_A,T,tau,a,r,h,pre_ind_C,iirf100_max = 97.0):
     alpha_val = g_0(a,tau,h) * np.sinh(iirf100_val / g_1(a,tau,h))
     
     return alpha_val
-
 def k_q(d,q,tcr,ecs,F_2x):
     
     k = 1.0 - (d/70.0)*(1.0 - np.exp(-70.0/d))
@@ -127,9 +139,7 @@ def k_q(d,q,tcr,ecs,F_2x):
         q =  (1.0 / F_2x) * (1.0/(k[0]-k[1])) * np.array([tcr-k[1]*ecs,k[0]*tcr-ecs])
         
     return k, q
-
 # define main model code
-
 def oxfair(emissions,
     emis2conc = 1/(5.148*10**18 / 1e18 * np.array([12.,16.,28.]) / 28.97),
     a = np.array([[0.2173,0.2240,0.2824,0.2763],[1,0,0.,0.],[1,0,0.,0.]]),
